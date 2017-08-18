@@ -27,6 +27,8 @@ async def on_message(message):
         await client.send_message(message.channel, "checkout it'sFlokkie at https://twitch.tv/itsFlokkie")
     elif message.content.startswith("!help"):
         await client.send_message(message.channel, "WIP")
+    elif message.content.startswith("!github"):
+        await client.send_message(message.channel, "Fork me on GitHub! https://github.com/yarwest/DiscordBot")
 
 client.run(variables["botToken"])
 
