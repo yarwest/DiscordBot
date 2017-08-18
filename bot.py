@@ -2,9 +2,14 @@ import discord
 import asyncio
 
 client = discord.Client()
-ownerID = "" # ID of your user account
-generalChannelID = "" # ID of the channel in which you want the bot to be most active
-botToken = "" # Insert the token of your bot account here
+variables = {}
+
+with open("vars.conf", "r") as file:
+    for line in file:
+        if line[0] != "#" and line[0] != "":
+            varName,varValue = line.split("=")
+            varValue = varValue[:len(varValue)-1]
+            variables[varName] = varValue
 
 @client.event
 async def on_ready():
@@ -12,7 +17,7 @@ async def on_ready():
     print(client.user.name)
     print(client.user.id)
     print("------")
-    await client.send_message(client.get_channel(generalChannelID), "hi guys, bot up and running")
+    await client.send_message(client.get_channel(variables["generalChannelID"]), "hi guys, bot up and running")
 
 @client.event
 async def on_message(message):
@@ -23,6 +28,6 @@ async def on_message(message):
     elif message.content.startswith("!help"):
         await client.send_message(message.channel, "WIP")
 
-client.run(botToken)
+client.run(variables["botToken"])
 
 client.close()
