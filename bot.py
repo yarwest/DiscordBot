@@ -4,12 +4,14 @@ import asyncio
 client = discord.Client()
 variables = {}
 
-with open("vars.conf", "r") as file:
-    for line in file:
-        if line[0] != "#" and line[0] != "":
-            varName,varValue = line.split("=")
-            varValue = varValue[:len(varValue)-1]
-            variables[varName] = varValue
+def initVars():
+    with open("vars.conf", "r") as file:
+        for line in file:
+            if line[0] != "#" and line[0] != "":
+                varName,varValue = line.split("=")
+                varValue = varValue[:len(varValue)-1]
+                variables[varName] = varValue
+
 
 @client.event
 async def on_ready():
@@ -30,6 +32,9 @@ async def on_message(message):
         await client.send_message(message.channel, "WIP")
     elif content.startswith("!github"):
         await client.send_message(message.channel, "Fork me on GitHub! https://github.com/yarwest/DiscordBot")
+    elif content.startswith("!vars"):
+        initVars()
+        await client.send_message(message.channel, "Vars updated")
     elif content.startswith("!sb"):
         content = content.strip("!sb ")
         author = message.author
@@ -38,6 +43,8 @@ async def on_message(message):
 
         player = await vc.create_ytdl_player("https://www.youtube.com/watch?v=KMU0tzLwhbE")
         player.start()
+
+initVars()
 
 client.run(variables["botToken"])
 
