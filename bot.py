@@ -21,14 +21,23 @@ async def on_ready():
 
 @client.event
 async def on_message(message):
-    if message.content.startswith("!test"):
+    content = message.content
+    if content.startswith("!test"):
         await client.send_message(message.channel, "what the hell are you testing for")
-    elif message.content.startswith("!flokkie"):
+    elif content.startswith("!flokkie"):
         await client.send_message(message.channel, "checkout it'sFlokkie at https://twitch.tv/itsFlokkie")
-    elif message.content.startswith("!help"):
+    elif content.startswith("!help"):
         await client.send_message(message.channel, "WIP")
-    elif message.content.startswith("!github"):
+    elif content.startswith("!github"):
         await client.send_message(message.channel, "Fork me on GitHub! https://github.com/yarwest/DiscordBot")
+    elif content.startswith("!sb"):
+        content = content.strip("!sb ")
+        author = message.author
+        channel = author.voice_channel
+        vc = await client.join_voice_channel(channel)
+
+        player = await vc.create_ytdl_player("https://www.youtube.com/watch?v=KMU0tzLwhbE")
+        player.start()
 
 client.run(variables["botToken"])
 
