@@ -12,6 +12,12 @@ def initVars():
                 varValue = varValue[:len(varValue)-1]
                 variables[varName] = varValue
 
+async def moveToChannel(channel):
+    if True:
+        vc = await client.join_voice_channel(channel)
+    else:
+        vc = await client.move_to(channel)
+    return vc
 
 @client.event
 async def on_ready():
@@ -39,12 +45,12 @@ async def on_message(message):
         content = content.strip("!sb ")
         author = message.author
         channel = author.voice_channel
-        vc = await client.join_voice_channel(channel)
+        vc = await moveToChannel(channel)
 
     elif content.startswith("!developers"):
         author = message.author
         channel = author.voice_channel
-        vc = await client.join_voice_channel(channel)
+        vc = await moveToChannel(channel)
 
         developers = "https://www.youtube.com/watch?v=KMU0tzLwhbE"
         player = await vc.create_ytdl_player(developers)
