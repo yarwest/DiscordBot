@@ -41,7 +41,14 @@ async def on_message(message):
         channel = author.voice_channel
         vc = await client.join_voice_channel(channel)
 
-        player = await vc.create_ytdl_player("https://www.youtube.com/watch?v=KMU0tzLwhbE")
+    elif content.startswith("!developers"):
+        author = message.author
+        channel = author.voice_channel
+        vc = await client.join_voice_channel(channel)
+
+        developers = "https://www.youtube.com/watch?v=KMU0tzLwhbE"
+        player = await vc.create_ytdl_player(developers)
+        await client.send_message(message.channel, developers)
         player.start()
 
 initVars()
