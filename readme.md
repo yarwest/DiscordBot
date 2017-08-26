@@ -8,7 +8,9 @@ Adding a bot to a server (of which you are an admin) can be done here https://di
 
 Where BOTID is the ID of the newly created bot.
 
-Additionally you will need to install the Discord API Python wrapper. This can be done via pip using the following command ```python3 -m pip install -U discord.py```
+This project requires you to install Python and libffi which can be done with apt-get ```sudo apt-get install python3-dev libffi-dev```
+
+Additionally you will need to install the Discord API Python wrapper and PyNaCl. This can be done via pip using the following command ```python3 -m pip install -U discord.py[voice] PyNaCl```
 
 ### Configuration
 
@@ -21,3 +23,7 @@ After all the above steps have been completed run ```python3 bot.py``` and the b
 Feel free to contribute by forking the repository and making a pull request.
 
 Any issues or suggestions can be added as an issue and I will take a look at it :)
+
+### Disclaimer
+
+You will need to host the bot yourself, this repository only provides the code (which is subject to change and faults). For more information I can be reached at yarnoboelens@gmail.com
