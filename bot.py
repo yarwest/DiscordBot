@@ -54,6 +54,7 @@ async def on_message(message):
         else:
             if content == "developers" or content == "devs":
                 link = "https://www.youtube.com/watch?v=KMU0tzLwhbE"
+                await client.send_message(message.channel, link)
             else:
                 link = content
             author = message.author
@@ -61,7 +62,6 @@ async def on_message(message):
 
             vc = await moveToChannel(channel)
             player = await vc.create_ytdl_player(link)
-            await client.send_message(message.channel, link)
             player.start()
 
 initVars()
