@@ -47,15 +47,22 @@ async def on_message(message):
         channel = author.voice_channel
         vc = await moveToChannel(channel)
 
-    elif content.startswith("!developers"):
-        author = message.author
-        channel = author.voice_channel
-        vc = await moveToChannel(channel)
+    elif content.startswith("!yt"):
+        content = content.strip("!yt ")
+        if content == "":
+            await client.send_message(message.channel, "Include a link to play audio from YouTube")
+        else:
+            if content == "developers" or content == "devs":
+                link = "https://www.youtube.com/watch?v=KMU0tzLwhbE"
+            else:
+                link = content
+            author = message.author
+            channel = author.voice_channel
 
-        developers = "https://www.youtube.com/watch?v=KMU0tzLwhbE"
-        player = await vc.create_ytdl_player(developers)
-        await client.send_message(message.channel, developers)
-        player.start()
+            vc = await moveToChannel(channel)
+            player = await vc.create_ytdl_player(link)
+            await client.send_message(message.channel, link)
+            player.start()
 
 initVars()
 
