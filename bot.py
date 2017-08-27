@@ -3,6 +3,7 @@ import asyncio
 
 client = discord.Client()
 variables = {}
+vc = None
 
 def initVars():
     with open("vars.conf", "r") as file:
@@ -13,11 +14,11 @@ def initVars():
                 variables[varName] = varValue
 
 async def moveToChannel(channel):
-    if True:
-        vc = await client.join_voice_channel(channel)
-    else:
-        vc = await client.move_to(channel)
-    return vc
+    if vc != None:
+        if vc.is_connected():
+            await vc.move_to(channel)
+            return vc
+    return await client.join_voice_channel(channel)
 
 @client.event
 async def on_ready():
@@ -29,6 +30,7 @@ async def on_ready():
 
 @client.event
 async def on_message(message):
+    global vc
     content = message.content
     if content.startswith("!test"):
         await client.send_message(message.channel, "what the hell are you testing for")
