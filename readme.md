@@ -10,7 +10,7 @@ Where BOTID is the ID of the newly created bot.
 
 This project requires you to install Python and libffi which can be done with apt-get ```sudo apt-get install python3-dev libffi-dev```
 
-Additionally you will need to install the Discord API Python wrapper and PyNaCl. This can be done via pip using the following command ```python3 -m pip install -U discord.py[voice] PyNaCl```
+Additionally you will need to install the Discord API Python wrapper, youtube_dl and PyNaCl. This can be done via pip using the following command ```python3 -m pip install -U discord.py[voice] PyNaCl youtube_dl```
 
 ### Configuration
 
