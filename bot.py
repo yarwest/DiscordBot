@@ -54,11 +54,15 @@ async def on_message(message):
         if content == "":
             await client.send_message(message.channel, "Include a link to play audio from YouTube")
         else:
+            youtubePrefix = "https://www.youtube.com/watch?v="
             if content == "developers" or content == "devs":
-                link = "https://www.youtube.com/watch?v=KMU0tzLwhbE"
+                link = youtubePrefix + "KMU0tzLwhbE"
                 await client.send_message(message.channel, link)
-            else:
+            elif content.startswith("https://www.youtube.com/watch?v="):
                 link = content
+            else:
+                link = youtubePrefix + "MtN1YnoL46Q"
+                await client.send_message(message.channel, link)
             author = message.author
             channel = author.voice_channel
 
