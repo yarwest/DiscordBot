@@ -9,9 +9,9 @@ vc = None
 def initVars():
     with open("vars.conf", "r") as file:
         for line in file:
+            line = line.strip()
             if line[0] != "#" and line[0] != "":
                 varName,varValue = line.split("=")
-                varValue = varValue[:len(varValue)-1]
                 variables[varName] = varValue
 
 def initCommands():
@@ -19,7 +19,6 @@ def initCommands():
         for line in file:
             if line[0] != "#" and line[0] != "":
                 commandName,commandResponse= line.split("=")
-                commandResponse = commandResponse[:len(commandResponse)-1]
                 commands[commandName] = commandResponse
 
 def initLocal():
@@ -44,7 +43,7 @@ async def on_ready():
 @client.event
 async def on_message(message):
     global vc
-    content = message.content
+    content = message.content.strip()
     if any([content.startswith(command) for command in commands]):
         for command in commands:
             if content.startswith(command):
@@ -59,7 +58,7 @@ async def on_message(message):
         vc = await moveToChannel(channel)
 
     elif content.startswith("!yt"):
-        content = content.strip("!yt ")
+        content = content.strip("!yt").strip()
         if content == "":
             await client.send_message(message.channel, "Include a link to play audio from YouTube")
         else:
