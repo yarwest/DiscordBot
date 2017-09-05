@@ -22,6 +22,10 @@ def initCommands():
                 commandResponse = commandResponse[:len(commandResponse)-1]
                 commands[commandName] = commandResponse
 
+def initLocal():
+    initVars()
+    initCommands()
+
 async def moveToChannel(channel):
     if vc != None:
         if vc.is_connected():
@@ -75,8 +79,7 @@ async def on_message(message):
             player = await vc.create_ytdl_player(link)
             player.start()
 
-initVars()
-initCommands()
+initLocal()
 
 client.run(variables["botToken"])
 
