@@ -49,9 +49,9 @@ async def on_message(message):
         for command in commands:
             if content.startswith(command):
                 await client.send_message(message.channel, commands[command])
-    elif content.startswith("!vars"):
-        initVars()
-        await client.send_message(message.channel, "Vars updated")
+    elif content.startswith("!resetLocal"):
+        initLocal()
+        await client.send_message(message.channel, "Environment reset")
     elif content.startswith("!sb"):
         content = content.strip("!sb ")
         author = message.author
