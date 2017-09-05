@@ -18,6 +18,14 @@ There isn't much that needs to be done to get this bot up and running. The most 
 
 After all the above steps have been completed run ```python3 bot.py``` and the bot should be working.
 
+## The goal
+
+There isn't much of a goal apart from having a practical, working, discord bot. I'd like to implement the audio from my [soundboard app](https://github.com/yarwest/SoundBoard). I might think up more (complex) functionality that would be a nice stretch goal. Feel free to leave suggestions as issues.
+
+## Licensing
+
+The project is licensed under the MIT license which can be found in the LICENSE file.
+
 ## Contribution
 
 Feel free to contribute by forking the repository and making a pull request.
