@@ -3,6 +3,7 @@ import asyncio
 
 client = discord.Client()
 variables = {}
+commands = {}
 vc = None
 
 def initVars():
@@ -12,6 +13,14 @@ def initVars():
                 varName,varValue = line.split("=")
                 varValue = varValue[:len(varValue)-1]
                 variables[varName] = varValue
+
+def initCommands():
+    with open("commands.conf", "r") as file:
+        for line in file:
+            if line[0] != "#" and line[0] != "":
+                commandName,commandResponse= line.split("=")
+                commandResponse = commandResponse[:len(commandResponse)-1]
+                commands[commandName] = commandResponse
 
 async def moveToChannel(channel):
     if vc != None:
@@ -32,14 +41,10 @@ async def on_ready():
 async def on_message(message):
     global vc
     content = message.content
-    if content.startswith("!test"):
-        await client.send_message(message.channel, "what the hell are you testing for")
-    elif content.startswith("!flokkie"):
-        await client.send_message(message.channel, "checkout it'sFlokkie at https://twitch.tv/itsFlokkie")
-    elif content.startswith("!help"):
-        await client.send_message(message.channel, "WIP")
-    elif content.startswith("!github"):
-        await client.send_message(message.channel, "Fork me on GitHub! https://github.com/yarwest/DiscordBot")
+    if any([content.startswith(command) for command in commands]):
+        for command in commands:
+            if content.startswith(command):
+                await client.send_message(message.channel, commands[command])
     elif content.startswith("!vars"):
         initVars()
         await client.send_message(message.channel, "Vars updated")
@@ -71,6 +76,7 @@ async def on_message(message):
             player.start()
 
 initVars()
+initCommands()
 
 client.run(variables["botToken"])
 
