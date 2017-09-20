@@ -1,9 +1,14 @@
 import discord
 import asyncio
+from os.path import dirname, abspath
+from os import listdir
+from random import randint
 
 client = discord.Client()
+projectRoot = dirname(abspath(__file__))
 variables = {}
 commands = {}
+tracks = []
 vc = None
 
 def initVars():
@@ -24,6 +29,10 @@ def initCommands():
     print("Commands initiated")
 
 def initAudio():
+    for file in listdir(projectRoot+"/audio/"):
+        if file.endswith(".ogg"):
+            author, track = file.split("_")
+            tracks.append((file, author, track))
     print("Audio initiated")
 
 def initLocal():
@@ -31,6 +40,7 @@ def initLocal():
     initCommands()
     initAudio()
     print("Local environment initiated")
+    print("------")
 
 async def moveToChannel(channel):
     if vc != None:
@@ -62,8 +72,9 @@ async def on_message(message):
         content = content.strip("!sb ")
         author = message.author
         channel = author.voice_channel
+        track = tracks[randint(0,len(tracks)-1)]
         vc = await moveToChannel(channel)
-        player = vc.create_ffmpeg_player("audio/flokkie_Twee men.ogg")
+        player = vc.create_ffmpeg_player("audio/" + track[0])
         player.start()
 
     elif content.startswith("!yt"):
