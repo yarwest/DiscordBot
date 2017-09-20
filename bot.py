@@ -13,6 +13,7 @@ def initVars():
             if line[0] != "#" and line[0] != "":
                 varName,varValue = line.split("=")
                 variables[varName] = varValue
+    print("Variables initiated")
 
 def initCommands():
     with open("commands.conf", "r") as file:
@@ -20,10 +21,16 @@ def initCommands():
             if line[0] != "#" and line[0] != "":
                 commandName,commandResponse= line.split("=")
                 commands[commandName] = commandResponse
+    print("Commands initiated")
+
+def initAudio():
+    print("Audio initiated")
 
 def initLocal():
     initVars()
     initCommands()
+    initAudio()
+    print("Local environment initiated")
 
 async def moveToChannel(channel):
     if vc != None:
