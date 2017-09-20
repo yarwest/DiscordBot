@@ -56,6 +56,8 @@ async def on_message(message):
         author = message.author
         channel = author.voice_channel
         vc = await moveToChannel(channel)
+        player = vc.create_ffmpeg_player("audio/flokkie_Twee men.ogg")
+        player.start()
 
     elif content.startswith("!yt"):
         content = content.strip("!yt").strip()
